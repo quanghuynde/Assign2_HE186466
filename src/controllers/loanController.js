@@ -22,8 +22,8 @@ const getAllLoans = async (req, res) => {
     if (member_id) filter.member_id = member_id;
 
     const loans = await Loan.find(filter)
-      .populate("member_id", "fullName email phone membershipType")
-      .populate("items.book_id", "title author isbn category")
+      .populate("member_id")
+      .populate("items.book_id")
       .lean();
 
     return res.status(200).json(loans);
@@ -43,8 +43,8 @@ const getLoanById = async (req, res) => {
     }
 
     const loan = await Loan.findById(id)
-      .populate("member_id", "fullName email phone membershipType")
-      .populate("items.book_id", "title author isbn category")
+      .populate("member_id")
+      .populate("items.book_id")
       .lean();
 
     if (!loan) {
@@ -73,8 +73,8 @@ const getLoansByMember = async (req, res) => {
     }
 
     const loans = await Loan.find({ member_id: memberId })
-      .populate("member_id", "fullName email phone membershipType")
-      .populate("items.book_id", "title author isbn category")
+      .populate("member_id")
+      .populate("items.book_id")
       .lean();
 
     return res.status(200).json(loans);
@@ -149,8 +149,8 @@ const createLoan = async (req, res) => {
     });
 
     const populatedLoan = await Loan.findById(newLoan._id)
-      .populate("member_id", "fullName email phone membershipType")
-      .populate("items.book_id", "title author isbn category")
+      .populate("member_id")
+      .populate("items.book_id")
       .lean();
 
     return res.status(201).json(populatedLoan);
@@ -198,8 +198,8 @@ const updateLoan = async (req, res) => {
       new: true,
       runValidators: true,
     })
-      .populate("member_id", "fullName email phone membershipType")
-      .populate("items.book_id", "title author isbn category")
+      .populate("member_id")
+      .populate("items.book_id")
       .lean();
 
     return res.status(200).json(updated);
