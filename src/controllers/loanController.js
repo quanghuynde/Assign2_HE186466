@@ -8,20 +8,7 @@ const PERMITTED_STATUSES = ["Borrowing", "Returned", "Overdue"];
 // GET /api/loans
 const getAllLoans = async (req, res) => {
   try {
-    const { status, member_id } = req.query;
-
-    // Validate status query if provided
-    if (status && !PERMITTED_STATUSES.includes(status)) {
-      return res.status(400).json({
-        error: `Invalid status: ${status}. Permitted values: ${PERMITTED_STATUSES.join(", ")}`,
-      });
-    }
-
-    const filter = {};
-    if (status)    filter.status    = status;
-    if (member_id) filter.member_id = member_id;
-
-    const loans = await Loan.find(filter)
+    const loans = await Loan.find()
       .populate("member_id")
       .populate("items.book_id")
       .lean();

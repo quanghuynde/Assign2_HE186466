@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Member = require("../models/Member");
 const Loan = require("../models/Loan");
 
-const PERMITTED_MEMBERSHIP_TYPES = ["Student", "Teacher", "Guest"];
+const permitted = ["Student", "Teacher", "Guest"];
 
 // GET /api/members
 const getAllMembers = async (req, res) => {
@@ -10,9 +10,9 @@ const getAllMembers = async (req, res) => {
     const { membershipType, isActive } = req.query;
 
     // Validate membershipType query if provided
-    if (membershipType && !PERMITTED_MEMBERSHIP_TYPES.includes(membershipType)) {
+    if (membershipType && !permitted.includes(membershipType)) {
       return res.status(400).json({
-        error: `Invalid membershipType: ${membershipType}. Permitted values: ${PERMITTED_MEMBERSHIP_TYPES.join(", ")}`,
+        error: `Invalid membershipType: ${membershipType}. Permitted values: ${permitted.join(", ")}`,
       });
     }
 
@@ -64,9 +64,9 @@ const createMember = async (req, res) => {
     }
 
     // Validate membershipType
-    if (membershipType && !PERMITTED_MEMBERSHIP_TYPES.includes(membershipType)) {
+    if (membershipType && !permitted.includes(membershipType)) {
       return res.status(400).json({
-        error: `Invalid membershipType: ${membershipType}. Permitted values: ${PERMITTED_MEMBERSHIP_TYPES.join(", ")}`,
+        error: `Invalid membershipType: ${membershipType}. Permitted values: ${permitted.join(", ")}`,
       });
     }
 
@@ -101,9 +101,9 @@ const updateMember = async (req, res) => {
     }
 
     // Validate membershipType if provided
-    if (req.body.membershipType && !PERMITTED_MEMBERSHIP_TYPES.includes(req.body.membershipType)) {
+    if (req.body.membershipType && !permitted.includes(req.body.membershipType)) {
       return res.status(400).json({
-        error: `Invalid membershipType: ${req.body.membershipType}. Permitted values: ${PERMITTED_MEMBERSHIP_TYPES.join(", ")}`,
+        error: `Invalid membershipType: ${req.body.membershipType}. Permitted values: ${permitted.join(", ")}`,
       });
     }
 
