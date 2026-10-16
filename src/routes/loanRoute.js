@@ -10,7 +10,7 @@ const {
 } = require("../controllers/loanController");
 
 router.get("/loans", getAllLoans);                         // GET /api/loans
-router.get("/loans/member/:memberId", getLoansByMember);  // GET /api/loans/member/:memberId (must be before /:id)
+router.get("/loans/member/:memberId", getLoansByMember);  // GET /api/loans/member/:memberId
 router.get("/loans/:id", getLoanById);                    // GET /api/loans/:id
 router.post("/loans", createLoan);                        // POST /api/loans
 router.put("/loans/:id", updateLoan);                     // PUT /api/loans/:id

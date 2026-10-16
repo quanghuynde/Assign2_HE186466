@@ -3,7 +3,7 @@ const Loan = require("../models/Loan");
 const Book = require("../models/Book");
 const Member = require("../models/Member");
 
-const PERMITTED_STATUSES = ["Borrowing", "Returned", "Overdue"];
+const permitted = ["Borrowing", "Returned", "Overdue"];
 
 // GET /api/loans
 const getAllLoans = async (req, res) => {
@@ -158,9 +158,9 @@ const updateLoan = async (req, res) => {
     }
 
     // Validate status if provided
-    if (req.body.status && !PERMITTED_STATUSES.includes(req.body.status)) {
+    if (req.body.status && !permitted.includes(req.body.status)) {
       return res.status(400).json({
-        error: `Invalid status: ${req.body.status}. Permitted values: ${PERMITTED_STATUSES.join(", ")}`,
+        error: `Invalid status: ${req.body.status}. Permitted values: ${permitted.join(", ")}`,
       });
     }
 
